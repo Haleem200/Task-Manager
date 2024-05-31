@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
     },
     firstname: {
         type: String,
-        //required: [true, 'your must provide your firstname!'],
+        required: [true, 'your must provide your firstname!'],
         minlength: 3,
         maxLength: 15
     },

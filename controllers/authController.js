@@ -37,8 +37,6 @@ exports.signUp = catchAsync(async (req, res, next) => {
 })
 
 
-//the signin function still needs improvements:
-//it must send all the toDos of the logged in user with the response
 
 exports.signIn = catchAsync(async (req, res, next) => {
 
@@ -57,7 +55,6 @@ exports.signIn = catchAsync(async (req, res, next) => {
     createSendToken(user, 200, res, 'logged in successfully!')
 })
 
-// checking if the user is logged in and adds the user to the req in req.user field to be used in the following middlewares
 exports.authorize = catchAsync(async (req, res, next) => {
     if (!req.headers.authorization) return (next(new AppError('you are not logged in, please login first!', 401)))
 
@@ -67,7 +64,6 @@ exports.authorize = catchAsync(async (req, res, next) => {
         if(err) return (next (('You are not allowed to perform tis action', 401)))
 
         try{
-            //console.log(decoded.id);
             const user = await User.findById(decoded.id) 
             if(!user) return (next(new AppError('The user belonging to this token is no longer exists', 401)))
             req.user = user

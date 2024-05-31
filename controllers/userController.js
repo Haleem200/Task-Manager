@@ -16,8 +16,6 @@ const sendResponse = async (statusCode, data, res, msg) => {
     })
 }
 
-
-//the following middleware sends the firstname of all registered users
 exports.getAllUsers= catchAsync(async (req, res, next) => {
     const users = await User.find().select('firstname')
     if (users.length === 0) return next(new AppError('No users found!', 404))
@@ -32,7 +30,6 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
 })
 
 
-// this function does not expext any params. instade, the id is checked in the authorize middleware
 exports.updateMe = catchAsync(async (req, res, next) => {
     const user = await User.findById(req.user.id)
     if(!user) return next(new AppError('No user found with this id', 404))
@@ -43,11 +40,3 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     })
     sendResponse(200, updatedUser, res, 'user was edit successfully!')
 })
-
-/*
-exports.getUserToDos = catchAsync(async (req, res, next) => {
-    const user = req.user.id
-    const toDos = await ToDo.find({ user })
-    console.log(toDos);
-})
-*/

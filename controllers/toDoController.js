@@ -5,7 +5,6 @@ const catchAsync = require('../utils/catchAsyncErrors')
 const sendResponse = async (statusCode, data, res) => {
     console.log('data: ',data );
     let results
-    //if(data.length) results = data.length
     res.status(statusCode).json({
         status: 'success',
         results,
@@ -15,7 +14,6 @@ const sendResponse = async (statusCode, data, res) => {
     })
 }
 
-//get all toDos for a specific user
 exports.getAllToDos = catchAsync(async (req, res, next) => {
   
     console.log(req.user._id);
@@ -29,10 +27,8 @@ exports.getAllToDos = catchAsync(async (req, res, next) => {
         }
     })
 
-    //sendResponse(200, toDos, res)
 })
 
-//PROTECT
 exports.updateToDo = catchAsync(async (req, res, next) => {
 
     const toDo = await ToDo.findOneAndUpdate({_id:req.params.id}, req.body, {
@@ -60,11 +56,9 @@ exports.deleteToDo = catchAsync(async (req, res, next) => {
         status: 'success',
         data: null
     });
-    //sendResponse(204, null, res)
 })
 
 exports.getToDo = catchAsync(async (req,  res, next) => {
-    //console.log(req.body);
     const toDo = await ToDo.findById(req.params.id)
     if(!toDo) return (next (new AppError('No toDo found with this id', 404)))
     console.log(typeof toDo);
@@ -72,7 +66,6 @@ exports.getToDo = catchAsync(async (req,  res, next) => {
 })
 
 exports.createToDo = catchAsync(async (req, res, next) => {
-    //console.log(req.body); 
     req.body.user = req.user.id
     const toDo = await ToDo.create(req.body) 
     sendResponse(200, toDo, res) 
