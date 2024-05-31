@@ -1,0 +1,72 @@
+[
+    {
+      "username": "user1",
+      "firstname": "John",
+      "age": 25,
+      "password": "pass1234",
+      "passwordConfirm": "pass1234"
+    },
+    {
+      "username": "user2",
+      "firstname": "Alice",
+      "age": 30,
+      "password": "pass1234",
+      "passwordConfirm": "pass1234"
+    },
+    {
+      "username": "user3",
+      "firstname": "Bob",
+      "age": 28,
+      "password": "pass1234",
+      "passwordConfirm": "pass1234"
+    },
+    {
+      "username": "user4",
+      "firstname": "Emma",
+      "age": 22,
+      "password": "pass1234",
+      "passwordConfirm": "pass1234"
+    },
+    {
+      "username": "user5",
+      "firstname": "David",
+      "age": 35,
+      "password": "pass1234",
+      "passwordConfirm": "pass1234"
+    },
+    {
+      "username": "user6",
+      "firstname": "Sophie",
+      "age": 27,
+      "password": "pass1234",
+      "passwordConfirm": "pass1234"
+    },
+    {
+      "username": "user7",
+      "firstname": "Michael",
+      "age": 31,
+      "password": "pass1234",
+      "passwordConfirm": "pass1234"
+    },
+    {
+      "username": "user8",
+      "firstname": "Olivia",
+      "age": 29,
+      "password": "pass1234",
+      "passwordConfirm": "pass1234"
+    },
+    {
+      "username": "user9",
+      "firstname": "Daniel",
+      "age": 26,
+      "password": "pass1234",
+      "passwordConfirm": "pass1234"
+    },
+    {
+      "username": "user10",
+      "firstname": "Mia",
+      "age": 24,
+      "password": "pass1234",
+      "passwordConfirm": "pass1234"
+    }
+  ]

@@ -1,0 +1,148 @@
+/* Existing styles... */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    text-align: center;
+}
+h1 {
+    color: #333;
+}
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    margin-bottom: 20px;
+}
+.btn:hover {
+    background-color: #0056b3;
+}
+.form-container {
+    display: none;
+    margin-top: 20px;
+}
+.form-container input {
+    padding: 10px;
+    margin: 5px;
+    width: 80%;
+    max-width: 300px;
+}
+.form-container button {
+    margin-top: 10px;
+}
+.task {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    position: relative;
+}
+.task:hover {
+    transform: translateY(-5px);
+}
+.task-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: inline-block;
+    position: relative;
+}
+.task-title input {
+    border: none;
+    outline: none;
+    font-size: 18px;
+    font-weight: bold;
+    background: transparent;
+    pointer-events: none;
+}
+.task-title.editing input {
+    pointer-events: auto;
+}
+.task-title input:focus {
+    border-bottom: 1px solid #007bff;
+}
+.edit-icon {
+    margin-left: 5px;
+    color: #007bff;
+    cursor: pointer;
+}
+.edit-icon:hover {
+    color: #0056b3;
+}
+.confirm-icon {
+    margin-left: 5px;
+    color: #28a745;
+    display: none;
+    cursor: pointer;
+}
+.task-title.editing .edit-icon {
+    display: none;
+}
+.task-title.editing .confirm-icon {
+    display: inline-block;
+}
+.confirm-icon:hover {
+    color: #218838;
+}
+.task-status {
+    font-size: 16px;
+    margin-top: 10px;
+}
+.done-task {
+    background-color: #d3d3d3; /* Light gray background for done tasks */
+}
+.delete-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #dc3545; /* Red color for delete icon */
+    cursor: pointer;
+}
+.delete-icon:hover {
+    color: #bd2130; /* Darker red color on hover */
+}
+.custom-confirmation {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+.custom-confirmation p {
+    margin-bottom: 15px;
+}
+.custom-confirmation button {
+    padding: 8px 16px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.custom-confirmation button.confirm-btn {
+    background-color: #dc3545;
+    color: #fff;
+}
+.custom-confirmation button.cancel-btn {
+    background-color: #007bff;
+    color: #fff;
+}

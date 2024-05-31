@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Task Manager</h1>
+        <p>Organize your tasks efficiently with our task manager!</p>
+        <button class="btn" id="loginBtn">Login</button>
+        <button class="btn" id="signupBtn">Signup</button>
+        <button class="btn" id="logoutBtn" style="display: none;">Logout</button>
+        <button class="btn" id="viewTasksBtn" style="display: none;">View Tasks</button>
+        <button class="btn" id="backBtn" style="display: none;">Back</button>
+        <button class="btn" id="addBtn" style="display: none;">Add Task</button>
+        
+        <div class="form-container" id="loginForm">
+            <h2>Login</h2>
+            <input type="text" id="loginUsername" placeholder="Username" required>
+            <input type="password" id="loginPassword" placeholder="Password" required>
+            <button class="btn" id="loginSubmitBtn">Submit</button>
+        </div>
+        
+        <div class="form-container" id="signupForm">
+            <h2>Signup</h2>
+            <input type="text" id="signupUsername" placeholder="Username" required>
+            <input type="password" id="signupPassword" placeholder="Password" required>
+            <input type="password" id="signupPasswordConfirm" placeholder="Confirm Password" required>
+            <button class="btn" id="signupSubmitBtn">Submit</button>
+        </div>
+        
+        <div class="form-container" id="addTaskForm" style="display: none;">
+            <h2>Add Task</h2>
+            <input type="text" id="taskTitle" placeholder="Task Title" required>
+            <button class="btn" id="addTaskSubmitBtn">Submit</button>
+            <button class="btn" id="cancelTaskBtn">Cancel</button>
+        </div>
+        
+        <div id="taskList" style="display: none;"></div>
+    </div>
+
+    <script src="js/scripts.js"></script>
+</body>
+</html>

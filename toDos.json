@@ -1,0 +1,47 @@
+[
+  {
+    "title": "Buy groceries",
+    "tags": ["groceries"]
+  },
+  {
+    "title": "Read a book",
+    "tags": ["reading"]
+  },
+  {
+    "title": "Complete project",
+    "tags": ["work", "project"]
+  },
+  {
+    "title": "Exercise",
+    "tags": ["health", "fitness"]
+  },
+  {
+    "title": "Learn JS",
+    "tags": ["learning"]
+  },
+  {
+    "title": "Write blog",
+    "status": "done",
+    "tags": ["writing", "blogging"]
+  },
+  {
+    "title": "Plan weekend",
+    "status": "done",
+    "tags": ["weekend", "planning"]
+  },
+  {
+    "title": "Call friend",
+    "status": "done",
+    "tags": ["comm", "friend"]
+  },
+  {
+    "title": "Solve challenges",
+    "status": "done",
+    "tags": ["coding"]
+  },
+  {
+    "title": "Clean house",
+    "status": "done",
+    "tags": ["cleaning"]
+  }
+]
