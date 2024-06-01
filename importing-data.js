@@ -3,8 +3,9 @@ const mongoose = require('mongoose')
 const ToDo = require('./models/toDoModel')
 const User = require('./models/userModel')
 
+const db = process.env.DB
 
-mongoose.connect('mongodb://localhost:27017/toDoApi').then(() => {
+mongoose.connect(db).then(() => {
     console.log('DB in now connected!');
 })
 
