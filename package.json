@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
-    "start:prod": "set NODE_ENV=production && nodemon server.js"
+    "start": "node server.js",
+    "dev": "set NODE_ENV=production && nodemon server.js"
   },
   "author": "abdelhalim elsayed",
   "license": "ISC",
