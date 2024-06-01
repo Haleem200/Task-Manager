@@ -33,7 +33,7 @@ loginSubmitBtn.addEventListener('click', () => {
     const username = document.getElementById('loginUsername').value;
     const password = document.getElementById('loginPassword').value;
     
-    fetch('http://localhost:5000/users/login', {
+    fetch('/users/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -67,7 +67,7 @@ alert('Passwords do not match. Please confirm your password.');
 return; // Exit the function early if passwords don't match
 }
 
-fetch('http://localhost:5000/users/register', {
+fetch('/users/register', {
 method: 'POST',
 headers: {
     'Content-Type': 'application/json'
@@ -105,7 +105,7 @@ function showTaskPage() {
 
 // Fetch and display tasks for logged-in user
 viewTasksBtn.addEventListener('click', function() {
-    fetch('http://localhost:5000/toDos/', {
+    fetch('/toDos/', {
         headers: {
             'Authorization': `Bearer ${token}`
         }
@@ -202,7 +202,7 @@ addBtn.addEventListener('click', function() {
 addTaskSubmitBtn.addEventListener('click', function() {
     const taskTitle = document.getElementById('taskTitle').value;
 
-    fetch('http://localhost:5000/toDos/', {
+    fetch('/toDos/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -232,7 +232,7 @@ cancelTaskBtn.addEventListener('click', function() {
 
 // Function to update task title
 function updateTaskTitle(taskId, newTitle, titleDiv) {
-    fetch(`http://localhost:5000/toDos/${taskId}`, {
+    fetch(`/toDos/${taskId}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
@@ -253,7 +253,7 @@ function updateTaskTitle(taskId, newTitle, titleDiv) {
 
 // Function to update task status
 function updateTaskStatus(id, newStatus) {
-fetch(`http://localhost:5000/toDos/${id}`, {
+fetch(`/toDos/${id}`, {
 method: 'PATCH',
 headers: {
     'Content-Type': 'application/json',
@@ -287,7 +287,7 @@ function showCustomConfirmation(taskId, taskDiv) {
 
 // Function to delete task
 function deleteTask(taskId, taskDiv) {
-    fetch(`http://localhost:5000/toDos/${taskId}`, {
+    fetch(`/toDos/${taskId}`, {
         method: 'DELETE',
         headers: {
             'Authorization': `Bearer ${token}`

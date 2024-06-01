@@ -3,7 +3,6 @@ const AppError = require('../utils/AppError')
 const catchAsync = require('../utils/catchAsyncErrors')
 
 const sendResponse = async (statusCode, data, res) => {
-    console.log('data: ',data );
     let results
     res.status(statusCode).json({
         status: 'success',
@@ -16,7 +15,6 @@ const sendResponse = async (statusCode, data, res) => {
 
 exports.getAllToDos = catchAsync(async (req, res, next) => {
   
-    console.log(req.user._id);
     const toDos = await ToDo.find({user: req.user._id})
     if(toDos.length === 0) return (next (new AppError("You don't have any toDos", 404)))
 
@@ -46,12 +44,10 @@ exports.updateToDo = catchAsync(async (req, res, next) => {
 
 exports.deleteToDo = catchAsync(async (req, res, next) => {    
     const toDo = await ToDo.findOneAndDelete({_id: req.params.id})
-    console.log(!toDo);
     if(!toDo) {
         return next(new AppError("You don't have a toDo with this ID", 404))
     }
 
-    console.log('kggvvkktvgkkv');
     res.status(204).json({
         status: 'success',
         data: null
@@ -61,7 +57,6 @@ exports.deleteToDo = catchAsync(async (req, res, next) => {
 exports.getToDo = catchAsync(async (req,  res, next) => {
     const toDo = await ToDo.findById(req.params.id)
     if(!toDo) return (next (new AppError('No toDo found with this id', 404)))
-    console.log(typeof toDo);
     sendResponse(200, toDo, res) 
 })
 

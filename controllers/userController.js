@@ -23,9 +23,7 @@ exports.getAllUsers= catchAsync(async (req, res, next) => {
 })
 
 exports.deleteMe = catchAsync(async (req, res, next) => {
-    console.log(req.user.id);
     await User.deleteOne({_id: req.user.id})
-    console.log(user);
     sendResponse(204, null, res)
 })
 
