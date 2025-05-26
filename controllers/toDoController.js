@@ -29,7 +29,12 @@ exports.getAllToDos = catchAsync(async (req, res, next) => {
 
 exports.updateToDo = catchAsync(async (req, res, next) => {
 
-    const toDo = await ToDo.findOneAndUpdate({_id:req.params.id}, req.body, {
+    const toDo = await ToDo.findOneAndUpdate({
+        _id: req.params.id, 
+        user: req.user._id 
+    },
+    req.body,
+    {
         runValidators: true,
         new: true
     }) 
@@ -38,12 +43,14 @@ exports.updateToDo = catchAsync(async (req, res, next) => {
         return next(new AppError('No task found with that ID', 404));
     }
 
-
     sendResponse(200, toDo, res)
 })
 
 exports.deleteToDo = catchAsync(async (req, res, next) => {    
-    const toDo = await ToDo.findOneAndDelete({_id: req.params.id})
+    const toDo = await ToDo.findOneAndDelete({
+    _id: req.params.id,
+    user: req.user._id  
+    })
     if(!toDo) {
         return next(new AppError("You don't have a toDo with this ID", 404))
     }
