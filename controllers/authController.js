@@ -58,7 +58,13 @@ exports.authorize = catchAsync(async (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1]
 
     jwt.verify(token, privateKey, async function(err, decoded) {
-    if(err) return next(new AppError('You are not allowed to perform this action', 401));
+    if(err) {
+        console.log(err)
+        if(err.name === 'TokenExpiredError') {
+            return next(new AppError('Your token has expired, please login again', 401))
+        }
+        return next(new AppError('You are not allowed to perform this action', 401));
+    }
         try{
             const user = await User.findById(decoded.id) 
             if(!user) return (next(new AppError('The user belonging to this token is no longer exists', 401)))
