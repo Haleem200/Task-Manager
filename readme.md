@@ -2,6 +2,10 @@
 
 A full-stack task management application built with Node.js, Express.js, MongoDB, and vanilla JavaScript. This application allows users to register, authenticate, and manage their personal tasks with a clean and intuitive interface.
 
+## 🌐 Live Demo
+
+**[View Live Project](https://task-manager-nlnr.onrender.com/)**
+
 ## 🚀 Features
 
 - **User Authentication**: Secure user registration and login with JWT tokens
@@ -152,3 +156,4 @@ task-manager/
 ├── .gitignore               # Git ignore rules
 └── README.md                # Project documentation
 ```
+
