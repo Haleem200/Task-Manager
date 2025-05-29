@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt')
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
-        //required: [true, 'please provide a username!'],
+        required: [true, 'please provide a username!'],
         unique: true
     },
     firstname: {
@@ -49,7 +49,7 @@ userSchema.methods.isPasswordCorrect = async function (candidateaPass, storedHas
 }
 
 userSchema.virtual('toDos',{
-    ref: 'Todo',
+    ref: 'ToDo',
     foreignField: 'user',
     localField: '_id'
 })
