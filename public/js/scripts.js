@@ -113,7 +113,8 @@ viewTasksBtn.addEventListener('click', function() {
     .then(response => response.json())
     .then(data => {
         taskListDiv.innerHTML = '';
-        data.data.toDos.forEach(task => {
+        
+        (data.data.toDos || []).forEach(task => {
             const taskDiv = document.createElement('div');
             taskDiv.classList.add('task');
             if (task.status === 'done') {
