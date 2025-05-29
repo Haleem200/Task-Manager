@@ -5,10 +5,32 @@ const sendResponse = require('../utils/responseHandler');
 
 exports.getAllToDos = catchAsync(async (req, res, next) => {
   
-    const toDos = await ToDo.find({user: req.user._id})
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+    if (page < 1 || limit < 1) {
+        return next(new AppError('Page and limit must be greater than 0', 400));
+    }
 
-    sendResponse(res, 200,  {toDos}, 'Tasks retrieved successfully');
-})
+  const skip = (page - 1) * limit;
+    if (skip < 0) {
+        return next(new AppError('Invalid page number', 400));
+    }
+  const total = await ToDo.countDocuments({ user: req.user._id });
+
+  const toDos = await ToDo.find({ user: req.user._id })
+    .skip(skip)
+    .limit(limit)
+    .sort({ createdAt: -1 });
+
+  const pagination = {
+    page,
+    pages: Math.ceil(total / limit),
+    total,
+    limit
+  };
+
+  return sendResponse(res, 200, { toDos, pagination }, null, toDos.length);
+});
 
 exports.updateToDo = catchAsync(async (req, res, next) => {
 
