@@ -10,7 +10,7 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const app = express()
 
-const allowedOrigins = ['https://task-manager-nlnr.onrender.com'];
+const allowedOrigins = ['https://task-manager-nlnr.onrender.com', 'http://localhost:5000'];
 app.use(cors({
   origin: function (origin, callback) {
     // Allow requests with no origin (like mobile apps or curl requests)

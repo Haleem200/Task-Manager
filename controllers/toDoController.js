@@ -7,7 +7,7 @@ exports.getAllToDos = catchAsync(async (req, res, next) => {
   
     const toDos = await ToDo.find({user: req.user._id})
 
-    sendResponse(res, 200,  toDos, 'Tasks retrieved successfully');
+    sendResponse(res, 200,  {toDos}, 'Tasks retrieved successfully');
 })
 
 exports.updateToDo = catchAsync(async (req, res, next) => {
