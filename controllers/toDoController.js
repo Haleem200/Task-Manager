@@ -6,10 +6,8 @@ const sendResponse = require('../utils/responseHandler');
 exports.getAllToDos = catchAsync(async (req, res, next) => {
   
     const toDos = await ToDo.find({user: req.user._id})
-    if(toDos.length === 0) return (next (new AppError("You don't have any toDos", 404)))
 
     sendResponse(res, 200,  toDos, 'Tasks retrieved successfully');
-
 })
 
 exports.updateToDo = catchAsync(async (req, res, next) => {
