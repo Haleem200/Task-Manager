@@ -6,7 +6,8 @@ const userRouter = require('./routes/userRoutes')
 const globalErrorHandler = require('./controllers/errorController')
 const path = require('path')
 const compression = require('compression')
-
+const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
 const app = express()
 
 const allowedOrigins = ['https://task-manager-nlnr.onrender.com'];
@@ -35,10 +36,26 @@ app.get('/', (req, res) => {
 
 app.use(compression())
 
+
+app.use(helmet()); 
+
+const authLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, 
+    max: 100, 
+    message: 'Too many requests from this IP, please try again later.'
+});
+app.use('/users', authLimiter); 
+
+const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 200, 
+    message: 'Too many API requests from this IP, please try again later.'
+});
+app.use('/toDos', apiLimiter);
+
+
 app.use('/toDos', toDoRouter)
 app.use('/users', userRouter)
-
-
 
 app.use(globalErrorHandler)
 
