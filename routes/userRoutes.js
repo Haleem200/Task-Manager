@@ -4,11 +4,9 @@ const authController = require('./../controllers/authController')
 const router = express.Router()
 
 
-//router('/userId')
-
 router
     .route('/')
-    //.get(authController.authorize, userController.getAllUsers)
+    .get(authController.authorize, userController.getAllUsers)
     .delete(authController.authorize, userController.deleteMe)
     .patch(authController.authorize, userController.updateMe) 
 
