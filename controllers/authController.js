@@ -2,27 +2,30 @@ const jwt = require('jsonwebtoken')
 const catchAsync = require('./../utils/catchAsyncErrors')
 const User = require('./../models/userModel')
 const AppError = require('../utils/AppError')
+const sendResponse = require('../utils/responseHandler');
 
 const privateKey = process.env.JWT_SECRET
 
 
 const createSendToken = async (user, status, res, msg) => {
-    user.password = undefined;
 
-    const token = jwt.sign({ id: user._id }, privateKey, {
-        expiresIn: "60 days"
-    })
-    res.status(status).json({
-        status:'success',
-        message: msg, 
-        token,
-        data: {
-            token,
-            user
-        }
-    })
-}
+    const userResponse = {
+    id: user._id,
+    username: user.username,
+    };
 
+  const token = jwt.sign({ id: user._id }, privateKey, {
+    expiresIn: "60 days"
+  });
+
+  sendResponse(res, status, {
+    data: {
+      user: userResponse,
+      token: token
+    },
+    message: msg
+  });
+};
 exports.signUp = catchAsync(async (req, res, next) => {
 
     const newUser = await User.create({
