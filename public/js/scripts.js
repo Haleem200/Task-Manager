@@ -41,9 +41,9 @@ loginSubmitBtn.addEventListener('click', () => {
         body: JSON.stringify({ username, password })
     })
     .then(response => response.json())
-    .then(data => {
-        if (data.token) {
-            token = data.token;
+    .then(data => {    
+    if (data.status === 'success' && data.data.data && data.data.data.token) {
+        token = data.data.data.token;
             loginForm.style.display = 'none';
             showTaskPage();
         } else {
