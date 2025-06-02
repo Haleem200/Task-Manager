@@ -56,7 +56,6 @@ loginSubmitBtn.addEventListener('click', () => {
 });
 
 // Handle signup
-// Handle signup
 signupSubmitBtn.addEventListener('click', () => {
 const username = document.getElementById('signupUsername').value;
 const password = document.getElementById('signupPassword').value;
@@ -75,14 +74,14 @@ headers: {
 body: JSON.stringify({ username, password, passwordConfirm })
 })
 .then(response => {
-if (!response.ok) {
+    if (!response.ok) {
     throw new Error('Signup failed.');
 }
 return response.json();
 })
 .then(data => {
-if (data.token) {
-    token = data.token;
+if (data.data.data.token) {
+    token = data.data.data.token;
     signupForm.style.display = 'none';
     showTaskPage();
 } else {
