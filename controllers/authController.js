@@ -8,23 +8,33 @@ const privateKey = process.env.JWT_SECRET
 
 
 const createSendToken = async (user, status, res, msg) => {
-
     const userResponse = {
-    id: user._id,
-    username: user.username,
+        id: user._id,
+        username: user.username,
     };
 
-  const token = jwt.sign({ id: user._id }, privateKey, {
-    expiresIn: "60 days"
-  });
+    const token = jwt.sign({ id: user._id }, privateKey, {
+        expiresIn: "60 days"
+    });
 
-  sendResponse(res, status, {
-    data: {
-      user: userResponse,
-      token: token
-    },
-    message: msg
-  });
+    // Set cookie options
+    const cookieOptions = {
+        expires: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000), // 60 days
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production', // Only send cookie over HTTPS in production
+        sameSite: 'strict'
+    };
+
+    // Set JWT as HttpOnly cookie
+    res.cookie('jwt', token, cookieOptions);
+
+    // Send response without exposing token in body
+    sendResponse(res, status, {
+        data: {
+            user: userResponse
+        },
+        message: msg
+    });
 };
 exports.signUp = catchAsync(async (req, res, next) => {
 
@@ -56,26 +66,42 @@ exports.signIn = catchAsync(async (req, res, next) => {
 })
 
 exports.authorize = catchAsync(async (req, res, next) => {
-    if (!req.headers.authorization) return (next(new AppError('you are not logged in, please login first!', 401)))
-
-    const token = req.headers.authorization.split(' ')[1]
-
-    jwt.verify(token, privateKey, async function(err, decoded) {
-    if(err) {
-        console.log(err)
-        if(err.name === 'TokenExpiredError') {
-            return next(new AppError('Your token has expired, please login again', 401))
-        }
-        return next(new AppError('You are not allowed to perform this action', 401));
+    let token;
+    
+    // Get token from cookie
+    if (req.cookies.jwt) {
+        token = req.cookies.jwt;
     }
-        try{
-            const user = await User.findById(decoded.id) 
-            if(!user) return (next(new AppError('The user belonging to this token is no longer exists', 401)))
-            req.user = user
-            next()
-        }catch(err){
-            next(err)
+
+    if (!token) {
+        return next(new AppError('You are not logged in. Please log in to get access.', 401));
+    }
+
+    // Verify token
+    jwt.verify(token, privateKey, async function(err, decoded) {
+        if(err) {
+            console.log(err);
+            if(err.name === 'TokenExpiredError') {
+                return next(new AppError('Your token has expired, please login again', 401));
+            }
+            return next(new AppError('You are not allowed to perform this action', 401));
+        }
+        try {
+            const user = await User.findById(decoded.id);
+            if(!user) return next(new AppError('The user belonging to this token is no longer exists', 401));
+            req.user = user;
+            next();
+        } catch(err) {
+            next(err);
         }
     });
-})
+});
+
+exports.logout = (req, res) => {
+    res.cookie('jwt', 'loggedout', {
+        expires: new Date(Date.now() + 1 * 1000),
+        httpOnly: true
+    });
+    sendResponse(res, 200, null, 'Logged out successfully');
+};
 

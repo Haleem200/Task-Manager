@@ -14,8 +14,6 @@ const cancelTaskBtn = document.getElementById('cancelTaskBtn');
 const taskListDiv = document.getElementById('taskList');
 const logoutBtn = document.getElementById('logoutBtn');
 
-let token = '';
-
 // Show login form
 loginBtn.addEventListener('click', () => {
     loginForm.style.display = 'block';
@@ -38,12 +36,12 @@ loginSubmitBtn.addEventListener('click', () => {
         headers: {
             'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify({ username, password })
     })
     .then(response => response.json())
     .then(data => {    
-    if (data.status === 'success' && data.data.data && data.data.data.token) {
-        token = data.data.data.token;
+        if (data.status === 'success') {
             loginForm.style.display = 'none';
             showTaskPage();
         } else {
@@ -57,40 +55,40 @@ loginSubmitBtn.addEventListener('click', () => {
 
 // Handle signup
 signupSubmitBtn.addEventListener('click', () => {
-const username = document.getElementById('signupUsername').value;
-const password = document.getElementById('signupPassword').value;
-const passwordConfirm = document.getElementById('signupPasswordConfirm').value;
+    const username = document.getElementById('signupUsername').value;
+    const password = document.getElementById('signupPassword').value;
+    const passwordConfirm = document.getElementById('signupPasswordConfirm').value;
 
-if (password !== passwordConfirm) {
-alert('Passwords do not match. Please confirm your password.');
-return; // Exit the function early if passwords don't match
-}
+    if (password !== passwordConfirm) {
+        alert('Passwords do not match. Please confirm your password.');
+        return;
+    }
 
-fetch('/users/register', {
-method: 'POST',
-headers: {
-    'Content-Type': 'application/json'
-},
-body: JSON.stringify({ username, password, passwordConfirm })
-})
-.then(response => {
-    if (!response.ok) {
-    throw new Error('Signup failed.');
-}
-return response.json();
-})
-.then(data => {
-if (data.data.data.token) {
-    token = data.data.data.token;
-    signupForm.style.display = 'none';
-    showTaskPage();
-} else {
-    alert('Signup failed. Please try again.');
-}
-})
-.catch(error => {
-console.error('Error during signup:', error);
-});
+    fetch('/users/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify({ username, password, passwordConfirm })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Signup failed.');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.status === 'success') {
+            signupForm.style.display = 'none';
+            showTaskPage();
+        } else {
+            alert('Signup failed. Please try again.');
+        }
+    })
+    .catch(error => {
+        console.error('Error during signup:', error);
+    });
 });
 
 // Show the task page
@@ -105,15 +103,12 @@ function showTaskPage() {
 // Fetch and display tasks for logged-in user
 viewTasksBtn.addEventListener('click', function() {
     fetch('/toDos/', {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
+        credentials: 'include'
     })
     .then(response => response.json())
     .then(data => {
         taskListDiv.innerHTML = '';
         
-
         (data.data.toDos || []).forEach(task => {
             const taskDiv = document.createElement('div');
             taskDiv.classList.add('task');
@@ -179,7 +174,7 @@ viewTasksBtn.addEventListener('click', function() {
         taskListDiv.style.display = 'block';
         backBtn.style.display = 'inline-block';
         addBtn.style.display = 'inline-block';
-        viewTasksBtn.style.display = 'none'; // Hide the view tasks button after displaying the tasks
+        viewTasksBtn.style.display = 'none';
     })
     .catch(error => {
         console.error('Error fetching tasks:', error);
@@ -206,9 +201,9 @@ addTaskSubmitBtn.addEventListener('click', function() {
     fetch('/toDos/', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify({ title: taskTitle })
     })
     .then(response => response.json())
@@ -216,7 +211,7 @@ addTaskSubmitBtn.addEventListener('click', function() {
         if (data.status === 'success') {
             addTaskForm.style.display = 'none';
             document.getElementById('taskTitle').value = '';
-            viewTasksBtn.click(); // Refresh the task list
+            viewTasksBtn.click();
         } else {
             alert('Failed to add task.');
         }
@@ -236,9 +231,9 @@ function updateTaskTitle(taskId, newTitle, titleDiv) {
     fetch(`/toDos/${taskId}`, {
         method: 'PATCH',
         headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify({ title: newTitle })
     })
     .then(response => response.json())
@@ -254,30 +249,29 @@ function updateTaskTitle(taskId, newTitle, titleDiv) {
 
 // Function to update task status
 function updateTaskStatus(id, newStatus) {
-fetch(`/toDos/${id}`, {
-method: 'PATCH',
-headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`
-},
-body: JSON.stringify({ status: newStatus })
-})
-.then(response => {
-if (!response.ok) {
-    throw new Error('Failed to update task status.');
+    fetch(`/toDos/${id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify({ status: newStatus })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to update task status.');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.status !== 'success') {
+            alert('Failed to update task status.');
+        }
+    })
+    .catch(error => {
+        console.error('Error updating task status:', error);
+    });
 }
-return response.json();
-})
-.then(data => {
-if (data.status !== 'success') {
-    alert('Failed to update task status.');
-}
-})
-.catch(error => {
-console.error('Error updating task status:', error);
-});
-}
-
 
 // Function to show custom confirmation dialog
 function showCustomConfirmation(taskId, taskDiv) {
@@ -290,16 +284,12 @@ function showCustomConfirmation(taskId, taskDiv) {
 function deleteTask(taskId, taskDiv) {
     fetch(`/toDos/${taskId}`, {
         method: 'DELETE',
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
+        credentials: 'include'
     })
     .then(response => {
         if (response.status === 204) {
-            // No content to parse, deletion was successful
             return { status: 'success' };
         } else {
-            // Attempt to parse the JSON response if it's not a 204
             return response.json();
         }
     })
@@ -317,14 +307,23 @@ function deleteTask(taskId, taskDiv) {
 
 // Logout button handler
 logoutBtn.addEventListener('click', function() {
-    token = '';
-    loginForm.style.display = 'block';
-    viewTasksBtn.style.display = 'none';
-    backBtn.style.display = 'none';
-    addBtn.style.display = 'none';
-    logoutBtn.style.display = 'none';
-    taskListDiv.style.display = 'none';
-    signupForm.style.display = 'none';
-    loginBtn.style.display = 'inline-block';
-    signupBtn.style.display = 'inline-block';
+    fetch('/users/logout', {
+        method: 'POST',
+        credentials: 'include'
+    })
+    .then(response => response.json())
+    .then(() => {
+        loginForm.style.display = 'block';
+        viewTasksBtn.style.display = 'none';
+        backBtn.style.display = 'none';
+        addBtn.style.display = 'none';
+        logoutBtn.style.display = 'none';
+        taskListDiv.style.display = 'none';
+        signupForm.style.display = 'none';
+        loginBtn.style.display = 'inline-block';
+        signupBtn.style.display = 'inline-block';
+    })
+    .catch(error => {
+        console.error('Error during logout:', error);
+    });
 });
