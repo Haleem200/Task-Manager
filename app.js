@@ -11,10 +11,26 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const app = express()
 
-const allowedOrigins = ['https://task-manager-nlnr.onrender.com', 'http://localhost:5000', 'http://13.49.224.93'];
+const allowedOrigins = [
+    'https://task-manager.me',
+    'https://www.task-manager.me',
+    'http://localhost:5000',
+    'http://localhost:3000'
+];
+
+// Configure CORS
 app.use(cors({
-    origin: allowedOrigins,
-    credentials: true
+    origin: function(origin, callback) {
+        if (!origin) return callback(null, true);
+        
+        if (allowedOrigins.indexOf(origin) === -1) {
+            return callback(new Error('The CORS policy for this site does not allow access from the specified Origin.'), false);
+        }
+        return callback(null, true);
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 // Parse cookies

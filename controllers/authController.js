@@ -21,14 +21,14 @@ const createSendToken = async (user, status, res, msg) => {
     const cookieOptions = {
         expires: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000), // 60 days
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production', // Only send cookie over HTTPS in production
-        sameSite: 'strict'
+        secure: true, 
+        sameSite: 'none', 
+        domain: process.env.NODE_ENV === 'production' ? '.task-manager.me' : 'localhost'
     };
 
     // Set JWT as HttpOnly cookie
     res.cookie('jwt', token, cookieOptions);
 
-    // Send response without exposing token in body
     sendResponse(res, status, {
         data: {
             user: userResponse
