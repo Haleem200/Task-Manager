@@ -4,7 +4,7 @@ A full-stack task management application built with Node.js, Express.js, MongoDB
 
 ## 🌐 Live Demo
 
-**[View Live Project](https://task-manager-nlnr.onrender.com/)**
+**[View Live Project](https://task-manager.me/)**
 
 ## 🚀 Features
 
