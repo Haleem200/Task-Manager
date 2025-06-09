@@ -1,113 +1,231 @@
-# Task Manager
-
-A web-based task management application that allows users to create, manage, and track their tasks efficiently. Built with Node.js and vanilla JavaScript, featuring user authentication and real-time task updates.
+A full-stack task management application built with Node.js, Express.js, MongoDB, and vanilla JavaScript. This application allows users to register, authenticate, and manage their personal tasks with a clean and intuitive interface.
 
 ## 🌐 Live Demo
 
 **[View Live Project](https://task-manager.me/)**
+# Task Manager API
+## 🚀 Features
 
-## Features
+- **User Authentication**: Secure user registration and login with JWT tokens
+- **Task Management**: Full CRUD operations for tasks (Create, Read, Update, Delete)
+- **Task Status**: Toggle tasks between "to-do" and "done" status
+- **Real-time Updates**: Dynamic task editing with inline editing functionality
+- **Responsive Design**: Mobile-friendly interface that works on all devices
+- **Security**: Rate limiting, CORS protection, and secure password hashing
+- **User-specific Tasks**: Each user can only view and manage their own tasks
 
-- **User Authentication**
-  - Secure signup and login functionality
-  - Password validation and confirmation
-  - User session management
+## 🛠️ Technology Stack
 
-- **Task Management**
-  - Create new tasks with titles
-  - Mark tasks as "to-do", "in-progress", or "done"
-  - Edit task titles
-  - Delete tasks
-  - Real-time task status updates
+### Backend
+- **Node.js** - Runtime environment
+- **Express.js** - Web application framework
+- **MongoDB** - NoSQL database
+- **Mongoose** - MongoDB object modeling
+- **JWT** - JSON Web Token for authentication
+- **bcrypt** - Password hashing
+- **Helmet** - Security middleware
+- **CORS** - Cross-origin resource sharing
+- **Morgan** - HTTP request logger
+- **Express Rate Limit** - Rate limiting middleware
 
-- **User Interface**
-  - Clean and intuitive interface
-  - Responsive design
-  - Visual feedback for task status
-  - Confirmation dialogs for important actions
+### Frontend
+- **HTML5** - Markup language
+- **CSS3** - Styling with responsive design
+- **Vanilla JavaScript** - Client-side scripting
+- **Fetch API** - HTTP requests
 
-## Technical Features
+## 📋 Prerequisites
 
-- Backend validation for user inputs
-- Error handling with descriptive messages
-- Secure password management
-- RESTful API architecture
-- Session-based authentication
+Before running this project, make sure you have the following installed:
+- Node.js (v10.0.0 or higher)
+- MongoDB (local installation or MongoDB Atlas account)
+- npm (Node Package Manager)
 
-## Installation
+## 🔧 Installation & Setup
 
-1. Clone the repository:
-   ```bash
-   git clone [your-repository-url]
-   ```
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Haleem200/task-manager.git
+cd task-manager
+```
 
-2. Navigate to the project directory:
-   ```bash
-   cd Task-Manager
-   ```
+### 2. Install Dependencies
+```bash
+npm install
+```
 
-3. Install dependencies:
-   ```bash
-   npm install
-   ```
+### 3. Environment Variables
+Create a `.env` file in the root directory and add the following variables:
 
-4. Set up your environment variables (create a `.env` file):
-   ```
-   PORT=3000
-   DATABASE_URL=your_database_url
-   SESSION_SECRET=your_session_secret
-   ```
+```env
+# Database
+DB=mongodb://localhost:27017/taskmanager
+# Or for MongoDB Atlas:
+# DB=mongodb+srv://username:password@cluster.mongodb.net/taskmanager
 
-5. Start the server:
-   ```bash
-   npm start
-   ```
+# JWT Secret
+JWT_SECRET=your-super-secret-jwt-key-here
 
-## API Endpoints
+# Server Port
+PORT=3000
 
-### User Routes
-- `POST /users/register` - Register a new user
-- `POST /users/login` - Login user
-- `POST /users/logout` - Logout user
+# Environment
+NODE_ENV=development
+```
 
-### Task Routes
-- `GET /toDos` - Get all tasks for logged-in user
-- `POST /toDos` - Create a new task
-- `PATCH /toDos/:id` - Update a task
-- `DELETE /toDos/:id` - Delete a task
+### 4. Start the Application
 
-## Validation Rules
+#### Development Mode
+```bash
+npm run dev
+```
 
-### User Validation
-- Username must be between 3 and 20 characters
-- Password must be at least 8 characters
-- Password confirmation must match the password
+#### Production Mode
+```bash
+npm start
+```
 
-### Task Validation
-- Task title must be between 4 and 30 characters
-- Task status must be one of: "to-do", "in-progress", "done"
+The server will start on `http://localhost:3000` (or your specified PORT).
 
-## Technologies Used
+## 📡 API Endpoints
 
-- **Frontend:**
-  - HTML5
-  - CSS3
-  - Vanilla JavaScript
+### Authentication Endpoints
 
-- **Backend:**
-  - Node.js
-  - Express.js
-  - Express Validator
-  - Express Session
+| Method | Endpoint | Description | Authentication Required |
+|--------|----------|-------------|------------------------|
+| POST | `/users/register` | Register a new user | No |
+| POST | `/users/login` | Login user | No |
 
-## Contributing
+### User Management Endpoints
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+| Method | Endpoint | Description | Authentication Required |
+|--------|----------|-------------|------------------------|
+| GET | `/users/` | Get all users | Yes |
+| PATCH | `/users/` | Update current user | Yes |
+| DELETE | `/users/` | Delete current user | Yes |
 
-## License
+### Task Management Endpoints
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+| Method | Endpoint | Description | Authentication Required |
+|--------|----------|-------------|------------------------|
+| GET | `/toDos/` | Get all tasks for current user | Yes |
+| POST | `/toDos/` | Create a new task | Yes |
+| PATCH | `/toDos/:id` | Update a specific task | Yes |
+| DELETE | `/toDos/:id` | Delete a specific task | Yes |
+
+## 📝 API Usage Examples
+
+### Register a New User
+```bash
+curl -X POST http://localhost:3000/users/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "johndoe",
+    "password": "password123",
+    "passwordConfirm": "password123"
+  }'
+```
+
+### Login
+```bash
+curl -X POST http://localhost:3000/users/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "johndoe",
+    "password": "password123"
+  }'
+```
+
+### Create a Task
+```bash
+curl -X POST http://localhost:3000/toDos \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{
+    "title": "Complete project documentation",
+    "status": "to-do"
+  }'
+```
+
+### Get All Tasks
+```bash
+curl -X GET http://localhost:3000/toDos \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+## 🗄️ Database Schema
+
+### User Model
+```javascript
+{
+  username: String (required, unique),
+  firstname: String (optional, 3-15 chars),
+  age: Number (minimum 13),
+  password: String (required, min 8 chars, hashed),
+  passwordConfirm: String (validation only)
+}
+```
+
+### Task (ToDo) Model
+```javascript
+{
+  user: ObjectId (reference to User),
+  title: String (required, 4-30 chars),
+  status: String (default: 'to-do'),
+  tags: [String] (optional, max 10 chars each),
+  createdAt: Date,
+  updatedAt: Date
+}
+```
+
+## 🔒 Security Features
+
+- **Password Hashing**: Passwords are hashed using bcrypt with salt rounds
+- **JWT Authentication**: Secure token-based authentication
+- **Rate Limiting**: API endpoints are rate-limited to prevent abuse
+- **CORS Protection**: Configured for specific allowed origins
+- **Helmet**: Security headers for protection against common vulnerabilities
+- **Input Validation**: Server-side validation for all user inputs
+- **User Isolation**: Users can only access their own data
+
+## 🎨 Frontend Features
+
+- **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
+- **Inline Editing**: Edit task titles directly without opening separate forms
+- **Status Toggle**: Quick checkbox to mark tasks as done/undone
+- **Real-time Updates**: Changes are immediately reflected in the UI
+- **Confirmation Dialogs**: Prevent accidental task deletion
+- **Clean UI**: Modern and intuitive user interface
+
+## 📁 Project Structure
+
+```
+task-manager/
+├── controllers/
+│   ├── authController.js      # Authentication logic
+│   ├── errorController.js     # Global error handling
+│   ├── toDoController.js      # Task CRUD operations
+│   └── userController.js      # User management
+├── models/
+│   ├── toDoModel.js          # Task database model
+│   └── userModel.js          # User database model
+├── routes/
+│   ├── toDoRoutes.js         # Task route definitions
+│   └── userRoutes.js         # User route definitions
+├── utils/
+│   ├── AppError.js           # Custom error class
+│   ├── catchAsyncErrors.js   # Async error wrapper
+│   └── responseHandler.js    # Response formatting utility
+├── public/
+│   ├── css/
+│   │   └── styles.css        # Frontend styles
+│   ├── js/
+│   │   └── scripts.js        # Frontend JavaScript
+│   └── index.html            # Main HTML file
+├── app.js                    # Express app configuration
+├── server.js                 # Server startup
+├── package.json              # Dependencies and scripts
+├── .gitignore               # Git ignore rules
+└── README.md                # Project documentation
+```
+
