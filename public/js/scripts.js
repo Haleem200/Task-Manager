@@ -45,11 +45,13 @@ loginSubmitBtn.addEventListener('click', () => {
             loginForm.style.display = 'none';
             showTaskPage();
         } else {
-            alert('Login failed. Please check your credentials.');
+            const errorMessage = data.message || 'Login failed. Please check your credentials.';
+            alert(errorMessage);
         }
     })
     .catch(error => {
         console.error('Error during login:', error);
+        alert('An error occurred during login. Please try again.');
     });
 });
 
@@ -72,22 +74,20 @@ signupSubmitBtn.addEventListener('click', () => {
         credentials: 'include',
         body: JSON.stringify({ username, password, passwordConfirm })
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Signup failed.');
-        }
-        return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
         if (data.status === 'success') {
             signupForm.style.display = 'none';
             showTaskPage();
         } else {
-            alert('Signup failed. Please try again.');
+            // Display the specific validation error message
+            const errorMessage = data.message || 'Signup failed. Please try again.';
+            alert(errorMessage);
         }
     })
     .catch(error => {
         console.error('Error during signup:', error);
+        alert('An error occurred during signup. Please try again.');
     });
 });
 
