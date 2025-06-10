@@ -167,11 +167,8 @@ Task-Manager/
 │   │   └── scripts.js          # Frontend JavaScript
 │   └── index.html              # Main HTML file
 │
-├── 📂 logs/                     # Application logs (not in repo)
-│
 ├── app.js                       # Express app configuration
 ├── server.js                    # Server startup
-├── ecosystem.config.js          # PM2 configuration
 ├── package.json                 # Dependencies and scripts
 ├── .gitignore                  # Git ignore rules
 └── README.md                   # Project documentation
