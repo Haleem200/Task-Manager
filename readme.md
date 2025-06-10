@@ -34,59 +34,6 @@ A full-stack task management application built with Node.js, Express.js, MongoDB
 - **Vanilla JavaScript** - Client-side scripting
 - **Fetch API** - HTTP requests
 
-## 📋 Prerequisites
-
-Before running this project, make sure you have the following installed:
-- Node.js (v10.0.0 or higher)
-- MongoDB (local installation or MongoDB Atlas account)
-- npm (Node Package Manager)
-
-## 🔧 Installation & Setup
-
-### 1. Clone the Repository
-```bash
-git clone https://github.com/Haleem200/task-manager.git
-cd task-manager
-```
-
-### 2. Install Dependencies
-```bash
-npm install
-```
-
-### 3. Environment Variables
-Create a `.env` file in the root directory and add the following variables:
-
-```env
-# Database
-DB=mongodb://localhost:27017/taskmanager
-# Or for MongoDB Atlas:
-# DB=mongodb+srv://username:password@cluster.mongodb.net/taskmanager
-
-# JWT Secret
-JWT_SECRET=your-super-secret-jwt-key-here
-
-# Server Port
-PORT=3000
-
-# Environment
-NODE_ENV=development
-```
-
-### 4. Start the Application
-
-#### Development Mode
-```bash
-npm run dev
-```
-
-#### Production Mode
-```bash
-npm start
-```
-
-The server will start on `http://localhost:3000` (or your specified PORT).
-
 ## 📡 API Endpoints
 
 ### Authentication Endpoints
@@ -95,6 +42,7 @@ The server will start on `http://localhost:3000` (or your specified PORT).
 |--------|----------|-------------|------------------------|
 | POST | `/users/register` | Register a new user | No |
 | POST | `/users/login` | Login user | No |
+| POST | `/users/logout` | Logout user | Yes |
 
 ### User Management Endpoints
 
