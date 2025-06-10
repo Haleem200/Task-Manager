@@ -78,7 +78,6 @@ The deployment uses industry-standard practices for security, performance, and r
 
 | Method | Endpoint | Description | Authentication Required |
 |--------|----------|-------------|------------------------|
-| GET | `/users/` | Get all users | Yes |
 | PATCH | `/users/` | Update current user | Yes |
 | DELETE | `/users/` | Delete current user | Yes |
 
@@ -138,32 +137,43 @@ The deployment uses industry-standard practices for security, performance, and r
 
 ## 📁 Project Structure
 
-- **controllers/**
-  - `authController.js` - Authentication logic
-  - `errorController.js` - Global error handling
-  - `toDoController.js` - Task CRUD operations
-  - `userController.js` - User management
-  - `validationController.js` - Input validation rules
-- **models/**
-  - `toDoModel.js` - Task database model
-  - `userModel.js` - User database model
-- **routes/**
-  - `toDoRoutes.js` - Task route definitions
-  - `userRoutes.js` - User route definitions
-- **utils/**
-  - `AppError.js` - Custom error class
-  - `catchAsyncErrors.js` - Async error wrapper
-  - `responseHandler.js` - Response formatting utility
-- **public/**
-  - **css/**
-    - `styles.css` - Frontend styles
-  - **js/**
-    - `scripts.js` - Frontend JavaScript
-  - `index.html` - Main HTML file
-- `app.js` - Express app configuration
-- `server.js` - Server startup
-- `ecosystem.config.js` - PM2 configuration
-- `logs/` - Application logs (not in repo)
-- `package.json` - Dependencies and scripts
-- `.gitignore` - Git ignore rules
-- `README.md` - Project documentation
+```bash
+Task-Manager/
+│
+├── 📂 controllers/
+│   ├── authController.js        # Authentication logic
+│   ├── errorController.js       # Global error handling
+│   ├── toDoController.js        # Task CRUD operations
+│   ├── userController.js        # User management
+│   └── validationController.js  # Input validation rules
+│
+├── 📂 models/
+│   ├── toDoModel.js            # Task database model
+│   └── userModel.js            # User database model
+│
+├── 📂 routes/
+│   ├── toDoRoutes.js           # Task route definitions
+│   └── userRoutes.js           # User route definitions
+│
+├── 📂 utils/
+│   ├── AppError.js             # Custom error class
+│   ├── catchAsyncErrors.js     # Async error wrapper
+│   └── responseHandler.js       # Response formatting utility
+│
+├── 📂 public/
+│   ├── 📂 css/
+│   │   └── styles.css          # Frontend styles
+│   ├── 📂 js/
+│   │   └── scripts.js          # Frontend JavaScript
+│   └── index.html              # Main HTML file
+│
+├── 📂 logs/                     # Application logs (not in repo)
+│
+├── app.js                       # Express app configuration
+├── server.js                    # Server startup
+├── ecosystem.config.js          # PM2 configuration
+├── package.json                 # Dependencies and scripts
+├── .gitignore                  # Git ignore rules
+└── README.md                   # Project documentation
+```
+
