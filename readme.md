@@ -40,6 +40,30 @@ A full-stack task management application built with Node.js, Express.js, MongoDB
 - **Vanilla JavaScript** - Client-side scripting
 - **Fetch API** - HTTP requests
 
+## 🚀 Deployment
+
+The application is deployed on AWS EC2 with the following production setup:
+
+- **Server**: Amazon EC2 instance running Ubuntu
+- **Process Manager**: PM2 for Node.js application management
+  - Zero-downtime deployments
+  - Automatic restart on crashes
+  - Load balancing capabilities
+  - Application logs management
+- **Reverse Proxy**: Nginx
+  - SSL/TLS termination
+  - Static file serving
+  - Load balancing
+  - Gzip compression
+- **Domain & SSL**: Custom domain with Let's Encrypt SSL certificate
+- **Monitoring**: PM2 monitoring and logging
+
+The deployment uses industry-standard practices for security, performance, and reliability:
+- Regular security updates
+- SSL/TLS encryption
+- Process management and monitoring
+- Automated backups
+- Error logging and monitoring
 ## 📡 API Endpoints
 
 ### Authentication Endpoints
@@ -114,33 +138,32 @@ A full-stack task management application built with Node.js, Express.js, MongoDB
 
 ## 📁 Project Structure
 
-task-manager/
-├── controllers/
-│ ├── authController.js # Authentication logic
-│ ├── errorController.js # Global error handling
-│ ├── toDoController.js # Task CRUD operations
-│ ├── userController.js # User management
-│ └── validationController.js # Input validation rules
-├── models/
-│ ├── toDoModel.js # Task database model
-│ └── userModel.js # User database model
-├── routes/
-│ ├── toDoRoutes.js # Task route definitions
-│ └── userRoutes.js # User route definitions
-├── utils/
-│ ├── AppError.js # Custom error class
-│ ├── catchAsyncErrors.js # Async error wrapper
-│ └── responseHandler.js # Response formatting utility
-├── public/
-│ ├── css/
-│ │ └── styles.css # Frontend styles
-│ ├── js/
-│ │ └── scripts.js # Frontend JavaScript
-│ └── index.html # Main HTML file
-├── app.js # Express app configuration
-├── server.js # Server startup
-├── ecosystem.config.js # PM2 configuration
-├── logs/ # Application logs (not in repo)
-├── package.json # Dependencies and scripts
-├── .gitignore # Git ignore rules
-└── README.md # Project documentation
+- **controllers/**
+  - `authController.js` - Authentication logic
+  - `errorController.js` - Global error handling
+  - `toDoController.js` - Task CRUD operations
+  - `userController.js` - User management
+  - `validationController.js` - Input validation rules
+- **models/**
+  - `toDoModel.js` - Task database model
+  - `userModel.js` - User database model
+- **routes/**
+  - `toDoRoutes.js` - Task route definitions
+  - `userRoutes.js` - User route definitions
+- **utils/**
+  - `AppError.js` - Custom error class
+  - `catchAsyncErrors.js` - Async error wrapper
+  - `responseHandler.js` - Response formatting utility
+- **public/**
+  - **css/**
+    - `styles.css` - Frontend styles
+  - **js/**
+    - `scripts.js` - Frontend JavaScript
+  - `index.html` - Main HTML file
+- `app.js` - Express app configuration
+- `server.js` - Server startup
+- `ecosystem.config.js` - PM2 configuration
+- `logs/` - Application logs (not in repo)
+- `package.json` - Dependencies and scripts
+- `.gitignore` - Git ignore rules
+- `README.md` - Project documentation
