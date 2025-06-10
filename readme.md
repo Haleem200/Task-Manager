@@ -1,11 +1,9 @@
-# Task Manager API
-
 A full-stack task management application built with Node.js, Express.js, MongoDB, and vanilla JavaScript. This application allows users to register, authenticate, and manage their personal tasks with a clean and intuitive interface.
 
 ## 🌐 Live Demo
 
 **[View Live Project](https://task-manager.me/)**
-
+# Task Manager API
 ## 🚀 Features
 
 - **User Authentication**: Secure user registration and login with JWT tokens
@@ -115,6 +113,71 @@ The server will start on `http://localhost:3000` (or your specified PORT).
 | PATCH | `/toDos/:id` | Update a specific task | Yes |
 | DELETE | `/toDos/:id` | Delete a specific task | Yes |
 
+## 📝 API Usage Examples
+
+### Register a New User
+```bash
+curl -X POST http://localhost:3000/users/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "johndoe",
+    "password": "password123",
+    "passwordConfirm": "password123"
+  }'
+```
+
+### Login
+```bash
+curl -X POST http://localhost:3000/users/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "johndoe",
+    "password": "password123"
+  }'
+```
+
+### Create a Task
+```bash
+curl -X POST http://localhost:3000/toDos \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{
+    "title": "Complete project documentation",
+    "status": "to-do"
+  }'
+```
+
+### Get All Tasks
+```bash
+curl -X GET http://localhost:3000/toDos \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+## 🗄️ Database Schema
+
+### User Model
+```javascript
+{
+  username: String (required, unique),
+  firstname: String (optional, 3-15 chars),
+  age: Number (minimum 13),
+  password: String (required, min 8 chars, hashed),
+  passwordConfirm: String (validation only)
+}
+```
+
+### Task (ToDo) Model
+```javascript
+{
+  user: ObjectId (reference to User),
+  title: String (required, 4-30 chars),
+  status: String (default: 'to-do'),
+  tags: [String] (optional, max 10 chars each),
+  createdAt: Date,
+  updatedAt: Date
+}
+```
+
 ## 🔒 Security Features
 
 - **Password Hashing**: Passwords are hashed using bcrypt with salt rounds
@@ -124,6 +187,15 @@ The server will start on `http://localhost:3000` (or your specified PORT).
 - **Helmet**: Security headers for protection against common vulnerabilities
 - **Input Validation**: Server-side validation for all user inputs
 - **User Isolation**: Users can only access their own data
+
+## 🎨 Frontend Features
+
+- **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
+- **Inline Editing**: Edit task titles directly without opening separate forms
+- **Status Toggle**: Quick checkbox to mark tasks as done/undone
+- **Real-time Updates**: Changes are immediately reflected in the UI
+- **Confirmation Dialogs**: Prevent accidental task deletion
+- **Clean UI**: Modern and intuitive user interface
 
 ## 📁 Project Structure
 
